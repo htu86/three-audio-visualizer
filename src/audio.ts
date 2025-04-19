@@ -1,50 +1,49 @@
+const fileInput = document.getElementById("fileSelect") as HTMLInputElement;
+const audioElement = document.getElementById("audioElement") as HTMLAudioElement;
 
-const audioControls = document.getElementById("audioElement")
+let audioCtx: AudioContext;
+let audioSource: MediaElementAudioSourceNode;
+let audioAnalyser: AnalyserNode;
+let bufferLength: number;
+let dataArray: Uint8Array;
+let barHeight: number;
 
-const fileInput = document.getElementById("fileSelect") // This is where we select the file needed as the audio source
-
-const audio1 = new Audio();
-const audioCtx = new AudioContext();
-let audioSource;
-let audioAnalyser:any;
-let audioURL:any;
-
-
-// Loading the audio file
-fileInput?.addEventListener("change", ()=>{
-  const file = event?.target.files[0]
-  if(file){
-    audioURL = URL.createObjectURL(file)
+fileInput?.addEventListener("change", (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (file) {
+    const audioURL = URL.createObjectURL(file);
+    audioElement.src = audioURL;
+    audioElement.load();
   }
-  audio1.src = audioURL
-})
+});
 
-let bufferLength:any;
-let dataArray:any = [];
-let barHeight;
-
-audioControls?.addEventListener("play", () => {
-  if (audio1.paused) {
-    audio1.play();
-    audioCtx.resume()
-    audioSource = audioCtx.createMediaElementSource(audio1);
+audioElement?.addEventListener("play", () => {
+  // Create AudioContext on user interaction
+  if (!audioCtx) {
+    audioCtx = new AudioContext();
+    audioSource = audioCtx.createMediaElementSource(audioElement);
     audioAnalyser = audioCtx.createAnalyser();
+
     audioSource.connect(audioAnalyser);
     audioAnalyser.connect(audioCtx.destination);
     audioAnalyser.fftSize = 128;
+
     bufferLength = audioAnalyser.frequencyBinCount;
     dataArray = new Uint8Array(bufferLength);
-  } 
+  }
+
+  if (audioCtx.state === "suspended") {
+    audioCtx.resume();
+  }
 });
-audioControls?.addEventListener("pause", () => {
-  if(!audio1.paused){
-    audio1.pause()
+audioElement?.addEventListener("pause", () => {
+  if(!audioElement.paused){
+    audioElement.pause()
   }
 })
 
 export {
-  audioControls,
-  audio1,
   audioCtx,
   audioSource,
   audioAnalyser,
