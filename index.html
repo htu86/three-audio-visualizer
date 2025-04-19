@@ -9,10 +9,16 @@
   </head>
   <body>
     <div class="container">
-      <audio id="audioElement" controls ></audio>
+
+      <div class="audio-container">
+        <audio id="audioElement" controls ></audio>
+        <input class="audio-slider" type="range" id="volumeControl" min="0" max="1" step="0.01" value="1">
+      </div>
+
       <input type="file" id="fileSelect" name="fileSelect" accept=".mp3,.wav" style="display: none;">
       <label class="input-button" for="fileSelect">Select a file</label>
     </div>
+
     <canvas id="mainScene"></canvas>
   </body>
   <script type="module" src="/src/main.ts"></script>
