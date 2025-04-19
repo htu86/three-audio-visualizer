@@ -42,5 +42,29 @@ canvas {
 }
 .input-button:hover{
   background-color: #474747;
+}
 
+.audio-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap:1rem
+}
+
+.audio-slider{
+-webkit-appearance: none;
+  appearance: none;
+  background: #262525;
+  cursor: pointer;
+  width: 5rem;
+  height: 31px;
+  border-radius: 10px;
+  padding: 0 0.2rem;
+}
+.audio-slider::-webkit-slider-runnable-track {
+  display: flex;
+  align-items: center;
+  background: #3a3939;
+  border-radius: 10px;
+  height: 5px;
 }
