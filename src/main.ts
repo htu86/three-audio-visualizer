@@ -24,8 +24,9 @@ for (let i = 0; i < 64; i++) {
 
   const cube = new THREE.Mesh(boxGeometry, cubeMaterial); // Assign the unique material
   cube.position.set(i * cubeSpacing, 0, 0); // Space them out by 1.2 units
-  scene.add(cube);
   cubes.push(cube);
+  cubes[i].scale.set(1,0,1)
+  scene.add(cube);
 }
 
 // Functions to animate
