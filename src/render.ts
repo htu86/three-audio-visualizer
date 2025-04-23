@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { OrbitControls, RectAreaLightHelper } from 'three/examples/jsm/Addons.js';
 
 const sceneCanvas = document.getElementById("mainScene") as HTMLCanvasElement | null;
 if (!sceneCanvas) {
@@ -15,13 +14,9 @@ const scene = new THREE.Scene();
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor(0x000000);
 renderer.setPixelRatio(window.devicePixelRatio);
-// renderer.shadowMap.enabled = true;
 
 camera.position.set(0,10,30)
 camera.translateX(38.4)
-
-// const controls = new OrbitControls(camera, renderer.domElement)
-
 
 // Light setup
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.01);
@@ -40,7 +35,6 @@ scene.add(directionalLight,directionalLight2);
 scene.add(ambientLight,directionalLight)
 
 export function updateScene(){
-  // controls.update(); 
   renderer.render(scene, camera);
 }
 
