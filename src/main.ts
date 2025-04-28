@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import {renderer, scene, updateScene} from './render'
 import { audioAnalyser, dataArray, bufferLength } from './audio';
+import { checkBrowser } from './browser';
 
 document.body.appendChild(renderer.domElement);
 
@@ -16,18 +17,20 @@ for (let i = 0; i < 64; i++) {
   // Create a unique material for each cube with the gradient color
   const cubeMaterial = new THREE.MeshStandardMaterial({
     color: color,
-    emissive: color, // Match emissive color for a glow effect
-    emissiveIntensity: 1.2, // Adjust as needed
+    emissive: color,
+    emissiveIntensity: 1.2,
     roughness: 1,
     metalness: 0.7,
   });
 
-  const cube = new THREE.Mesh(boxGeometry, cubeMaterial); // Assign the unique material
-  cube.position.set(i * cubeSpacing, 0, 0); // Space them out by 1.2 units
+  const cube = new THREE.Mesh(boxGeometry, cubeMaterial);
+  cube.position.set(i * cubeSpacing, 0, 0);
   cubes.push(cube);
   cubes[i].scale.set(1,0,1)
   scene.add(cube);
 }
+
+checkBrowser() // Check which browsers is used to either add or remove a custom volume slider
 
 // Functions to animate
 function animate() {
