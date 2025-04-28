@@ -1,6 +1,6 @@
 const fileInput = document.getElementById("fileSelect") as HTMLInputElement;
 const audioElement = document.getElementById("audioElement") as HTMLAudioElement;
-const volumeControl = document.getElementById("volumeControl") as HTMLInputElement
+const volumeControl = document.getElementById("volumeControl") as HTMLInputElement;
 
 let audioCtx: AudioContext;
 let audioSource: MediaElementAudioSourceNode;
@@ -26,7 +26,7 @@ audioElement?.addEventListener("play", () => {
     audioCtx = new AudioContext();
     audioSource = audioCtx.createMediaElementSource(audioElement);
     audioAnalyser = audioCtx.createAnalyser();
-    gainNode = audioCtx.createGain()
+    gainNode = audioCtx.createGain() // Create a gain node for volume control
 
     audioSource.connect(gainNode);
     gainNode.connect(audioAnalyser)
